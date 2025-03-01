@@ -9,7 +9,8 @@ members = [
 ]
 
 [workspace.dependencies]
-dioxus = "0.6.0"
+# dioxus = "0.6.3"
+dioxus = { git = "https://github.com/debanjanbasu/dioxus.git", branch = "main" }
 
 [profile]
 

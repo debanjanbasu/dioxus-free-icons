@@ -75,11 +75,11 @@ pub fn create_icon_file(svg_path: &str, output_path: &str, icon_prefix: &str) {
                 .replace("{VIEW_BOX}", &view_box)
                 .replace("{XMLNS}", &xmlns)
                 .replace("{CHILD_ELEMENTS}", &child_elements)
-                .replace("{FILL_COLOR}", &fill_color)
-                .replace("{STROKE_COLOR}", &stroke_color)
-                .replace("{STROKE_WIDTH}", &stroke_width)
-                .replace("{STROKE_LINECAP}", &stroke_linecap)
-                .replace("{STROKE_LINEJOIN}", &stroke_linejoin)
+                .replace("{FILL_COLOR}", fill_color)
+                .replace("{STROKE_COLOR}", stroke_color)
+                .replace("{STROKE_WIDTH}", stroke_width)
+                .replace("{STROKE_LINECAP}", stroke_linecap)
+                .replace("{STROKE_LINEJOIN}", stroke_linejoin)
         })
         .collect::<Vec<_>>()
         .join("\n");
@@ -109,14 +109,14 @@ fn collect_svg_files(svg_path: &str, icon_prefix: &str) -> Vec<PathBuf> {
         .filter(|e| match icon_prefix {
             "Go" => {
                 let re = Regex::new(r".*-16.svg$").unwrap();
-                return re.is_match(e.path().to_str().unwrap());
+                re.is_match(e.path().to_str().unwrap())
             }
             "Md" => {
                 let split_vec = e.path().components().collect::<Vec<_>>();
-                return split_vec.iter().any(|c| c.as_os_str() == "materialicons")
-                    && e.file_name().to_str().unwrap() == "24px.svg";
+                split_vec.iter().any(|c| c.as_os_str() == "materialicons")
+                    && e.file_name().to_str().unwrap() == "24px.svg"
             }
-            _ => return e.path().extension() == Some(OsStr::new("svg")),
+            _ => e.path().extension() == Some(OsStr::new("svg")),
         })
         .map(|dir| PathBuf::from(dir.path()))
         .collect::<Vec<_>>()
