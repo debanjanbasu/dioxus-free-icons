@@ -168,3 +168,36 @@ impl IconShape for MdWarning {
         }
     }
 }
+
+#[derive(Copy, Clone, Debug, PartialEq)]
+pub struct MdWarningAmber;
+impl IconShape for MdWarningAmber {
+    fn view_box(&self) -> &str {
+        "0 0 24 24"
+    }
+    fn xmlns(&self) -> &str {
+        "http://www.w3.org/2000/svg"
+    }
+    fn fill_and_stroke<'a>(&self, user_color: &'a str) -> (&'a str, &'a str, &'a str) {
+        (user_color, "none", "0")
+    }
+    fn stroke_linecap(&self) -> &str {
+        "butt"
+    }
+    fn stroke_linejoin(&self) -> &str {
+        "miter"
+    }
+    fn child_elements(&self) -> Element {
+        rsx! {
+            path {
+                d: "M12,5.99L19.53,19H4.47L12,5.99 M12,2L1,21h22L12,2L12,2z",
+            }
+            polygon {
+                points: "13,16 11,16 11,18 13,18",
+            }
+            polygon {
+                points: "13,10 11,10 11,15 13,15",
+            }
+        }
+    }
+}
